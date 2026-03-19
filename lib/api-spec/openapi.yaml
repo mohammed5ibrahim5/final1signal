@@ -1,0 +1,931 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Signal Analyzer API - All 10 lecture points
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+  - name: signal
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /signal/transform:
+    post:
+      operationId: transformSignal
+      tags: [signal]
+      summary: "Point 1 - Signal Transformation"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransformRequest"
+      responses:
+        "200":
+          description: Transformation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransformResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/odd-even:
+    post:
+      operationId: oddEvenDecompose
+      tags: [signal]
+      summary: "Point 2 - Odd/Even Decomposition"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OddEvenRequest"
+      responses:
+        "200":
+          description: Decomposition result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OddEvenResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/basic:
+    post:
+      operationId: evaluateBasicSignals
+      tags: [signal]
+      summary: "Point 3 - Basic Signals"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BasicSignalRequest"
+      responses:
+        "200":
+          description: Basic signals result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BasicSignalResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/sinusoid:
+    post:
+      operationId: evaluateSinusoid
+      tags: [signal]
+      summary: "Point 4 - Complex Exponentials and Sinusoids"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SinusoidRequest"
+      responses:
+        "200":
+          description: Sinusoid result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SinusoidResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/energy-power:
+    post:
+      operationId: computeEnergyPower
+      tags: [signal]
+      summary: "Point 5 - Energy and Power"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnergyPowerRequest"
+      responses:
+        "200":
+          description: Energy and power result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnergyPowerResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/convolution:
+    post:
+      operationId: computeConvolution
+      tags: [signal]
+      summary: "Point 6 - Convolution"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConvolutionRequest"
+      responses:
+        "200":
+          description: Convolution result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConvolutionResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/fourier:
+    post:
+      operationId: computeFourier
+      tags: [signal]
+      summary: "Point 7 - Fourier Transform / DTFT"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FourierRequest"
+      responses:
+        "200":
+          description: Fourier result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FourierResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/sampling:
+    post:
+      operationId: computeSampling
+      tags: [signal]
+      summary: "Point 8 - Sampling and Aliasing"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SamplingRequest"
+      responses:
+        "200":
+          description: Sampling result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SamplingResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/ztransform:
+    post:
+      operationId: computeZTransform
+      tags: [signal]
+      summary: "Point 9 - Z-Transform and DFT"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZTransformRequest"
+      responses:
+        "200":
+          description: Z-Transform and DFT result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ZTransformResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /signal/report:
+    post:
+      operationId: generateReport
+      tags: [signal]
+      summary: "Point 10 - Final Integration Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportRequest"
+      responses:
+        "200":
+          description: Full report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportResult"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+
+    GenericStep:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        latex:
+          type: string
+      required: [label, value]
+
+    # Point 1 - Transformation
+    TransformRequest:
+      type: object
+      properties:
+        tValues:
+          type: array
+          items:
+            type: number
+        xValues:
+          type: array
+          items:
+            type: number
+        expression:
+          type: string
+        domain:
+          type: string
+          enum: [continuous, discrete]
+      required: [tValues, xValues, expression, domain]
+
+    TransformStep:
+      type: object
+      properties:
+        oldT:
+          type: number
+        expression:
+          type: string
+        newT:
+          type: number
+        xValue:
+          type: number
+      required: [oldT, expression, newT, xValue]
+
+    TransformResult:
+      type: object
+      properties:
+        latexFormula:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransformStep"
+        newTValues:
+          type: array
+          items:
+            type: number
+        xValues:
+          type: array
+          items:
+            type: number
+        summary:
+          type: string
+      required: [latexFormula, steps, newTValues, xValues, summary]
+
+    # Point 2 - Odd/Even
+    OddEvenRequest:
+      type: object
+      properties:
+        nValues:
+          type: array
+          items:
+            type: number
+          description: Index values (symmetric around 0 preferred)
+        xValues:
+          type: array
+          items:
+            type: number
+        domain:
+          type: string
+          enum: [continuous, discrete]
+      required: [nValues, xValues, domain]
+
+    OddEvenStep:
+      type: object
+      properties:
+        n:
+          type: number
+        xN:
+          type: number
+        xNeg:
+          type: number
+        evenStep:
+          type: string
+        oddStep:
+          type: string
+        evenValue:
+          type: number
+        oddValue:
+          type: number
+      required: [n, xN, xNeg, evenStep, oddStep, evenValue, oddValue]
+
+    OddEvenResult:
+      type: object
+      properties:
+        latexEven:
+          type: string
+        latexOdd:
+          type: string
+        nValues:
+          type: array
+          items:
+            type: number
+        evenValues:
+          type: array
+          items:
+            type: number
+        oddValues:
+          type: array
+          items:
+            type: number
+        originalValues:
+          type: array
+          items:
+            type: number
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/OddEvenStep"
+        verificationSteps:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+      required: [latexEven, latexOdd, nValues, evenValues, oddValues, originalValues, steps, verificationSteps, summary]
+
+    # Point 3 - Basic Signals
+    BasicSignalRequest:
+      type: object
+      properties:
+        tValues:
+          type: array
+          items:
+            type: number
+        domain:
+          type: string
+          enum: [continuous, discrete]
+        shiftValue:
+          type: number
+          description: Optional shift for signals like u(t-a)
+      required: [tValues, domain]
+
+    BasicSignalRow:
+      type: object
+      properties:
+        t:
+          type: number
+        unitStep:
+          type: number
+        delta:
+          type: number
+        ramp:
+          type: number
+        shiftedStep:
+          type: number
+        unitStepStep:
+          type: string
+        deltaStep:
+          type: string
+        rampStep:
+          type: string
+      required: [t, unitStep, delta, ramp, shiftedStep, unitStepStep, deltaStep, rampStep]
+
+    BasicSignalResult:
+      type: object
+      properties:
+        latexUnitStep:
+          type: string
+        latexDelta:
+          type: string
+        latexRamp:
+          type: string
+        latexShifted:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: "#/components/schemas/BasicSignalRow"
+        summary:
+          type: string
+        shiftValue:
+          type: number
+      required: [latexUnitStep, latexDelta, latexRamp, latexShifted, rows, summary, shiftValue]
+
+    # Point 4 - Sinusoid
+    SinusoidRequest:
+      type: object
+      properties:
+        amplitude:
+          type: number
+          description: Amplitude A
+        omega:
+          type: number
+          description: Angular frequency ω (rad/s or rad/sample)
+        phi:
+          type: number
+          description: Phase φ in radians
+        tStart:
+          type: number
+        tEnd:
+          type: number
+        numPoints:
+          type: number
+        signalType:
+          type: string
+          enum: [cosine, sine, complex_exp]
+          description: Type of signal to generate
+        domain:
+          type: string
+          enum: [continuous, discrete]
+      required: [amplitude, omega, phi, tStart, tEnd, numPoints, signalType, domain]
+
+    SinusoidPoint:
+      type: object
+      properties:
+        t:
+          type: number
+        value:
+          type: number
+        stepDetail:
+          type: string
+      required: [t, value, stepDetail]
+
+    SinusoidResult:
+      type: object
+      properties:
+        latexFormula:
+          type: string
+        points:
+          type: array
+          items:
+            $ref: "#/components/schemas/SinusoidPoint"
+        period:
+          type: number
+        frequency:
+          type: number
+        isPeriodic:
+          type: boolean
+        periodicitySteps:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+      required: [latexFormula, points, period, frequency, isPeriodic, periodicitySteps, summary]
+
+    # Point 5 - Energy / Power
+    EnergyPowerRequest:
+      type: object
+      properties:
+        tValues:
+          type: array
+          items:
+            type: number
+        xValues:
+          type: array
+          items:
+            type: number
+        domain:
+          type: string
+          enum: [continuous, discrete]
+        signalClass:
+          type: string
+          enum: [auto, energy, power, neither]
+          description: Force classification or auto-detect
+      required: [tValues, xValues, domain]
+
+    EnergyPowerStep:
+      type: object
+      properties:
+        index:
+          type: number
+        t:
+          type: number
+        xSquared:
+          type: string
+        contribution:
+          type: string
+        runningEnergy:
+          type: number
+      required: [index, t, xSquared, contribution, runningEnergy]
+
+    EnergyPowerResult:
+      type: object
+      properties:
+        latexEnergy:
+          type: string
+        latexPower:
+          type: string
+        energy:
+          type: number
+        power:
+          type: number
+        classification:
+          type: string
+          enum: [energy, power, neither]
+        classificationReason:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/EnergyPowerStep"
+        summary:
+          type: string
+      required: [latexEnergy, latexPower, energy, power, classification, classificationReason, steps, summary]
+
+    # Point 6 - Convolution
+    ConvolutionRequest:
+      type: object
+      properties:
+        xValues:
+          type: array
+          items:
+            type: number
+          description: Input signal x[n]
+        xStart:
+          type: number
+          description: Starting index of x
+        hValues:
+          type: array
+          items:
+            type: number
+          description: Impulse response h[n]
+        hStart:
+          type: number
+          description: Starting index of h
+        domain:
+          type: string
+          enum: [continuous, discrete]
+      required: [xValues, xStart, hValues, hStart, domain]
+
+    ConvolutionStep:
+      type: object
+      properties:
+        k:
+          type: number
+          description: Output index
+        terms:
+          type: array
+          items:
+            type: string
+          description: Each multiplication term x[m]*h[k-m]
+        result:
+          type: number
+      required: [k, terms, result]
+
+    ConvolutionResult:
+      type: object
+      properties:
+        latexFormula:
+          type: string
+        yValues:
+          type: array
+          items:
+            type: number
+        yStart:
+          type: number
+        yIndices:
+          type: array
+          items:
+            type: number
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConvolutionStep"
+        length:
+          type: number
+        summary:
+          type: string
+      required: [latexFormula, yValues, yStart, yIndices, steps, length, summary]
+
+    # Point 7 - Fourier Transform
+    FourierRequest:
+      type: object
+      properties:
+        tValues:
+          type: array
+          items:
+            type: number
+        xValues:
+          type: array
+          items:
+            type: number
+        domain:
+          type: string
+          enum: [continuous, discrete]
+        numFreqPoints:
+          type: number
+          description: Number of frequency points for spectrum display
+      required: [tValues, xValues, domain]
+
+    FourierBin:
+      type: object
+      properties:
+        k:
+          type: number
+          description: Frequency bin index
+        frequency:
+          type: number
+        magnitude:
+          type: number
+        phase:
+          type: number
+        realPart:
+          type: number
+        imagPart:
+          type: number
+        computationDetail:
+          type: string
+      required: [k, frequency, magnitude, phase, realPart, imagPart, computationDetail]
+
+    FourierResult:
+      type: object
+      properties:
+        latexFormula:
+          type: string
+        bins:
+          type: array
+          items:
+            $ref: "#/components/schemas/FourierBin"
+        dominantFrequency:
+          type: number
+        samplingFrequency:
+          type: number
+        steps:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+      required: [latexFormula, bins, dominantFrequency, samplingFrequency, steps, summary]
+
+    # Point 8 - Sampling
+    SamplingRequest:
+      type: object
+      properties:
+        signalFrequency:
+          type: number
+          description: Original signal frequency in Hz (f_signal)
+        samplingFrequency:
+          type: number
+          description: Sampling frequency in Hz (f_s)
+        duration:
+          type: number
+          description: Signal duration in seconds
+        signalExpression:
+          type: string
+          description: Optional custom signal expression e.g. "cos(2*pi*5*t)"
+      required: [signalFrequency, samplingFrequency, duration]
+
+    SamplingResult:
+      type: object
+      properties:
+        latexFormula:
+          type: string
+        nyquistRate:
+          type: number
+        isAliasing:
+          type: boolean
+        aliasingFrequency:
+          type: number
+        samplingSteps:
+          type: array
+          items:
+            type: string
+        continuousPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              t:
+                type: number
+              value:
+                type: number
+            required: [t, value]
+        sampledPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              t:
+                type: number
+              value:
+                type: number
+            required: [t, value]
+        reconstructedPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              t:
+                type: number
+              value:
+                type: number
+            required: [t, value]
+        summary:
+          type: string
+      required: [latexFormula, nyquistRate, isAliasing, aliasingFrequency, samplingSteps, continuousPoints, sampledPoints, reconstructedPoints, summary]
+
+    # Point 9 - Z-Transform and DFT
+    ZTransformRequest:
+      type: object
+      properties:
+        xValues:
+          type: array
+          items:
+            type: number
+        nStart:
+          type: number
+          description: Starting index n
+        domain:
+          type: string
+          enum: [discrete]
+        computeDFT:
+          type: boolean
+        computeZTransform:
+          type: boolean
+      required: [xValues, nStart, domain]
+
+    ZTransformStep:
+      type: object
+      properties:
+        n:
+          type: number
+        xN:
+          type: number
+        term:
+          type: string
+          description: x[n]*z^(-n) term
+      required: [n, xN, term]
+
+    DFTBin:
+      type: object
+      properties:
+        k:
+          type: number
+        magnitude:
+          type: number
+        phase:
+          type: number
+        realPart:
+          type: number
+        imagPart:
+          type: number
+        formulaDetail:
+          type: string
+      required: [k, magnitude, phase, realPart, imagPart, formulaDetail]
+
+    ZTransformResult:
+      type: object
+      properties:
+        latexZTransform:
+          type: string
+        latexDFT:
+          type: string
+        zTransformTerms:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZTransformStep"
+        zTransformPolynomial:
+          type: string
+        dftBins:
+          type: array
+          items:
+            $ref: "#/components/schemas/DFTBin"
+        rocDescription:
+          type: string
+        summary:
+          type: string
+      required: [latexZTransform, latexDFT, zTransformTerms, zTransformPolynomial, dftBins, rocDescription, summary]
+
+    # Point 10 - Final Report
+    ReportRequest:
+      type: object
+      properties:
+        tValues:
+          type: array
+          items:
+            type: number
+        xValues:
+          type: array
+          items:
+            type: number
+        domain:
+          type: string
+          enum: [continuous, discrete]
+        label:
+          type: string
+          description: Optional signal label/name
+      required: [tValues, xValues, domain]
+
+    ReportSection:
+      type: object
+      properties:
+        title:
+          type: string
+        latex:
+          type: string
+        result:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+      required: [title, latex, result, details]
+
+    ReportResult:
+      type: object
+      properties:
+        signalLabel:
+          type: string
+        domain:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportSection"
+        signalPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              t:
+                type: number
+              x:
+                type: number
+            required: [t, x]
+        summary:
+          type: string
+      required: [signalLabel, domain, sections, signalPoints, summary]
